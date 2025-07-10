@@ -337,6 +337,20 @@
                 padding: 16px;
             }
         }
+
+        /* 새롭게 작성 버튼 스타일 */
+        .new-start-btn {
+            transition: all 0.3s ease;
+            transform: scale(1);
+        }
+
+        .new-start-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .new-start-btn:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
 <body class="min-h-screen gradient-bg transition-colors duration-300" data-theme="light">
@@ -365,7 +379,7 @@
 
         <div class="flex-1 p-2 sm:p-4">
             <div class="max-w-6xl mx-auto h-full flex flex-col">
-                <!-- Header with History Link -->
+                <!-- Header with History Link & New Start Button -->
                 <header class="text-center mb-4 sm:mb-6">
                     <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-800 dark:text-blue-200 mb-2">
                         감정 4분면 탐험가 Plus
@@ -373,9 +387,17 @@
                     <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300">
                         내 마음을 4가지로 나누어 탐험해보자!
                     </p>
-                    <div class="mt-2">
-                        <button id="historyBtn" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm underline">
-                            📊 나의 감정 히스토리 보기
+                    
+                    <!-- 상단 액션 버튼들 -->
+                    <div class="mt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+                        <button id="historyBtn" class="inline-flex items-center gap-2 px-4 py-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm bg-blue-50 dark:bg-blue-900 hover:bg-blue-100 dark:hover:bg-blue-800 rounded-lg transition-colors">
+                            <span>📊</span>
+                            <span>나의 감정 히스토리 보기</span>
+                        </button>
+                        
+                        <button id="newStartBtn" class="inline-flex items-center gap-2 px-4 py-2 text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 text-sm bg-emerald-50 dark:bg-emerald-900 hover:bg-emerald-100 dark:hover:bg-emerald-800 rounded-lg transition-colors new-start-btn">
+                            <span>🔄</span>
+                            <span>새롭게 작성하기</span>
                         </button>
                     </div>
                 </header>
@@ -421,7 +443,7 @@
                         <h3 class="text-lg font-bold text-gray-700 dark:text-gray-300 mb-3 text-center">
                             🎉 완성된 나의 감정 탐험 결과
                         </h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
                             <!-- 이미지 다운로드 -->
                             <button id="downloadImageBtn" 
                                     class="flex items-center justify-center px-4 py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-medium transition-colors shadow-lg min-h-[44px]">
@@ -449,6 +471,18 @@
                                 <span class="text-sm">공유하기</span>
                             </button>
                         </div>
+                        
+                        <!-- 새로운 탐험 시작 버튼 (완료 후 강조) -->
+                        <div class="text-center border-t border-gray-200 dark:border-gray-600 pt-4">
+                            <button id="newStartBtnComplete" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl font-bold text-lg transition-all shadow-lg new-start-btn">
+                                <span>🚀</span>
+                                <span>다시 한번 탐험해보기</span>
+                                <span>🎭</span>
+                            </button>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                                새로운 감정으로 또 다른 이야기를 만들어보세요!
+                            </p>
+                        </div>
                     </div>
                 </div>
 
@@ -462,15 +496,10 @@ touch-action-manipulation min-h-[44px]" aria-label="이전 단계">
                         <span class="text-sm sm:text-base">이전</span>
                     </button>
 
-                    <!-- 초기화 버튼 -->
-                    <button id="resetBtn" 
-                            class="flex items-center px-3 py-2 text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900 rounded-xl font-medium transition-colors min-h-[44px]"
-                            title="모든 데이터를 초기화합니다">
-                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                        </svg>
-                        <span class="text-sm">초기화</span>
-                    </button>
+                    <!-- 중앙 로고/아이콘 -->
+                    <div class="flex items-center">
+                        <span class="text-2xl">🎭</span>
+                    </div>
 
                     <button id="nextBtn" class="flex items-center px-3 sm:px-4 md:px-6 py-2 sm:py-3 rounded-xl font-medium transition-colors bg-gray-200 text-gray-400 cursor-not-allowed 
 touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
@@ -1064,22 +1093,34 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
             }
         }
 
-        // 데이터 초기화
-        function resetAllData() {
+        // 새롭게 작성 시작 (개선된 초기화)
+        function startNewExploration() {
             // 확인 대화상자
             const isConfirmed = confirm(
-                '정말로 모든 데이터를 초기화하시겠어요?\n\n' +
-                '• 선택한 감정들\n' +
-                '• 4분면 분류\n' +
-                '• 작성한 이야기\n' +
-                '• 저장된 히스토리\n\n' +
-                '이 작업은 되돌릴 수 없습니다.'
+                '🎭 새로운 감정 탐험을 시작하시겠어요?\n\n' +
+                '현재 진행 중인 내용이 있다면 모두 초기화됩니다.\n' +
+                '(이전 결과는 히스토리에 자동 저장됩니다)\n\n' +
+                '✨ 새로운 마음의 이야기를 만들어보세요!'
             );
 
             if (!isConfirmed) return;
 
+            // 현재 결과가 완료되었다면 히스토리에 저장
+            if (appState.currentStep === 3 && appState.personalStory.trim() !== '') {
+                saveEmotionHistory();
+            }
+
             try {
-                // 상태 초기화
+                // 상태 초기화 (설정은 유지)
+                const preservedSettings = {
+                    soundEnabled: appState.soundEnabled,
+                    fontSize: appState.fontSize,
+                    theme: appState.theme,
+                    history: appState.history,
+                    language: appState.language
+                };
+
+                // 탐험 관련 데이터만 초기화
                 appState.currentStep = 0;
                 appState.selectedEmotions = [];
                 appState.quadrantEmotions = {
@@ -1089,21 +1130,26 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                     negative_low: []
                 };
                 appState.personalStory = '';
-                appState.history = [];
+                appState.reflection = '';
 
-                // localStorage 초기화
-                localStorage.removeItem(STORAGE_KEY);
+                // 설정 복원
+                Object.assign(appState, preservedSettings);
 
                 // UI 업데이트
                 updateUI();
                 renderStep();
+                saveToStorage();
 
-                showToast('모든 데이터가 초기화되었어요! 🔄');
-                playSound('click');
+                // 성공 메시지
+                showToast('🚀 새로운 감정 탐험을 시작해요!');
+                playSound('success');
+
+                // 페이지 상단으로 스크롤
+                window.scrollTo({ top: 0, behavior: 'smooth' });
 
             } catch (error) {
-                console.error('초기화 오류:', error);
-                alert('초기화 중 오류가 발생했어요. 페이지를 새로고침해주세요.');
+                console.error('새 탐험 시작 오류:', error);
+                alert('새 탐험을 시작하는 중 오류가 발생했어요. 페이지를 새로고침해주세요.');
             }
         }
 
@@ -2176,8 +2222,15 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                 linkElement.click();
             });
 
-            // 초기화 버튼
-            document.getElementById('resetBtn').addEventListener('click', resetAllData);
+            // 새롭게 작성 버튼들 (상단 + 완료 후)
+            document.getElementById('newStartBtn').addEventListener('click', startNewExploration);
+            
+            // 완료 후 버튼은 동적으로 생성되므로 이벤트 위임 사용
+            document.addEventListener('click', (e) => {
+                if (e.target.id === 'newStartBtnComplete' || e.target.closest('#newStartBtnComplete')) {
+                    startNewExploration();
+                }
+            });
 
             // 네비게이션
             prevBtn.addEventListener('click', prevStep);
