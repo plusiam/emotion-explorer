@@ -1,7 +1,7 @@
 # 감정 4분면 탐험가 Plus 🎭
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://plusiam.github.io/emotion-explorer/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: Educational Use](https://img.shields.io/badge/License-Educational%20Use-yellow.svg)](#-라이선스)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/ko/docs/Web/HTML)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/ko/docs/Web/JavaScript)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
@@ -108,7 +108,7 @@
 ### 🎯 학습 목표별 활용
 
 | 학습 목표 | 활용 방법 | 평가 요소 |
-|-----------|-----------|-----------|
+|-----------|-----------|-----------|-
 | **감정 인식** | 1-2단계 집중 활용 | 감정 어휘 사용의 정확성 |
 | **감정 분류** | 3단계 4분면 활동 | 분류 기준의 일관성 |
 | **감정 표현** | 4단계 이야기 작성 | 구체성과 연결성 |
@@ -272,50 +272,9 @@ git push origin feature/new-emotion-cards
 - **테스트**: 최소 3가지 브라우저에서 확인
 - **문서화**: 새 기능은 README 업데이트 필수
 
-## 🔒 라이센스 및 권한
+## ❓ 자주 묻는 질문
 
-### 📄 MIT 라이센스
-```
-MIT License
-
-Copyright (c) 2025 plusiam
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
-
-### 🎓 교육적 사용
-- ✅ **교실 활용**: 무료 제한 없음
-- ✅ **교재 제작**: 수업 자료 제작 시 사용 가능
-- ✅ **연구 목적**: 교육 연구에 자유롭게 활용
-- ✅ **상업적 교육**: 교육 기관의 유료 프로그램에서도 사용 가능
-
-### 📚 외부 라이브러리 라이센스
-- **Tailwind CSS**: MIT License
-- **Chart.js**: MIT License
-- **jsPDF**: MIT License
-- **html2canvas**: MIT License
-
-## 🆘 문제 해결
-
-### ❓ 자주 묻는 질문
-
-#### Q1: 음성 인식이 작동하지 않아요
+### Q1: 음성 인식이 작동하지 않아요
 ```
 A: Firefox는 Web Speech API를 지원하지 않습니다.
    Chrome, Safari, Edge에서 사용해주세요.
@@ -326,7 +285,7 @@ A: Firefox는 Web Speech API를 지원하지 않습니다.
    - 브라우저 설정에서 마이크 접근 권한 확인
 ```
 
-#### Q2: 모바일에서 드래그가 안 돼요
+### Q2: 모바일에서 드래그가 안 돼요
 ```
 A: 모바일에서는 터치 제스처를 사용하세요.
    
@@ -336,7 +295,7 @@ A: 모바일에서는 터치 제스처를 사용하세요.
    3. 길게 누르면 상세 메뉴 표시
 ```
 
-#### Q3: 데이터가 사라져요
+### Q3: 데이터가 사라져요
 ```
 A: localStorage 기반 자동 저장이지만 몇 가지 주의사항:
    
@@ -345,7 +304,7 @@ A: localStorage 기반 자동 저장이지만 몇 가지 주의사항:
    - 중요한 결과는 이미지/PDF로 저장 권장
 ```
 
-#### Q4: PDF 다운로드가 안 돼요
+### Q4: PDF 다운로드가 안 돼요
 ```
 A: 다음 사항을 확인해주세요:
    
@@ -354,6 +313,63 @@ A: 다음 사항을 확인해주세요:
    - 브라우저 다운로드 권한 허용
    - 충분한 저장 공간 확인
 ```
+
+## 📄 라이선스 및 저작권
+
+### 📜 사용 허가 및 제한사항
+
+이 프로젝트는 **교육 목적으로 자유롭게 사용**할 수 있습니다.
+
+#### ✅ 허용되는 사용
+- 🏫 **교실 수업**: 무료 제한 없음
+- 📚 **교육 연구**: 학술 연구 및 논문 작성
+- 👨‍🏫 **교사 연수**: 교육 프로그램에서 활용
+- 🎯 **개인 학습**: 개별 학습 목적 사용
+- 🔄 **수정 및 배포**: 교육 목적 범위 내에서 수정하여 재배포
+- 📖 **교재 제작**: 비영리 교육 자료 제작 시 포함
+
+#### ❌ 제한되는 사용
+- 💰 **상업적 이용**: 영리를 목적으로 하는 모든 사용
+- 🏢 **기업 교육**: 유료 기업 교육 프로그램에서의 사용
+- 📱 **앱 개발**: 상업적 앱이나 서비스에 포함
+- 💼 **컨설팅**: 유료 컨설팅 서비스에서 활용
+- 🛒 **판매**: 도구 자체나 파생 상품의 판매
+
+#### ⚖️ 상업적 이용 시 필수 조건
+상업적 목적으로 이 도구를 사용하고자 하는 경우, **반드시 저작권자의 사전 허락**을 받아야 합니다.
+
+**📧 문의처**: [yeohanki@naver.com](mailto:yeohanki@naver.com)
+
+### 🔒 저작권 정보
+```
+Copyright (c) 2025 plusiam (룰루랄라 한기쌤)
+All rights reserved.
+
+본 소프트웨어 및 관련 문서 파일(이하 "소프트웨어")의 
+저작권은 plusiam에게 있습니다.
+
+교육 목적의 사용은 자유롭게 허용되나, 
+상업적 사용 시에는 저작권자의 명시적 허가가 필요합니다.
+```
+
+### 📋 외부 라이브러리 라이선스
+- **Tailwind CSS**: MIT License
+- **Chart.js**: MIT License
+- **jsPDF**: MIT License
+- **html2canvas**: MIT License
+
+### ⚠️ 면책 조항
+```
+이 소프트웨어는 "있는 그대로" 제공되며, 
+상품성, 특정 목적에의 적합성 및 비침해에 대한 
+보증을 포함하여 어떠한 종류의 명시적 또는 
+묵시적 보증 없이 제공됩니다.
+
+저작권자는 소프트웨어 사용으로 인한 
+어떠한 손해에 대해서도 책임을 지지 않습니다.
+```
+
+## 🆘 문제 해결
 
 ### 🐞 알려진 이슈
 1. **iOS Safari**: 음성 인식 시 화면 회전 시 중단됨
@@ -375,8 +391,14 @@ window.cleanupMobileTouchEvents(); // 터치 이벤트 정리
 - **GitHub Discussions**: [질문 및 아이디어 공유](https://github.com/plusiam/emotion-explorer/discussions)
 
 ### 📧 직접 연락
+- **개발자**: 룰루랄라 한기쌤
+- **이메일**: [yeohanki@naver.com](mailto:yeohanki@naver.com)
+- **GitHub**: [@plusiam](https://github.com/plusiam)
+
+### 📋 연락 시 포함사항
 - **교육 활용 문의**: 교실에서의 활용 방법 상담
 - **기술적 지원**: 설치나 커스터마이징 관련 도움
+- **상업적 이용 문의**: 라이선스 및 사용 허가 관련
 - **협업 제안**: 교육 기관과의 파트너십
 
 ### 🏫 교육기관 지원
@@ -412,5 +434,7 @@ window.cleanupMobileTouchEvents(); // 터치 이벤트 정리
 Made with ❤️ for educators and students worldwide
 
 [🌐 라이브 데모](https://plusiam.github.io/emotion-explorer/) | [📝 이슈 등록](https://github.com/plusiam/emotion-explorer/issues) | [💡 아이디어 제안](https://github.com/plusiam/emotion-explorer/discussions)
+
+**📧 상업적 이용 문의: [yeohanki@naver.com](mailto:yeohanki@naver.com)**
 
 </div>
