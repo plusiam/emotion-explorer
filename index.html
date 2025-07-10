@@ -32,6 +32,79 @@
             background: linear-gradient(135deg, #1a202c 0%, #2d3748 50%, #4a5568 100%);
         }
 
+        /* 다크모드 텍스트 색상 개선 */
+        [data-theme="dark"] {
+            color: #f3f4f6;
+        }
+
+        [data-theme="dark"] .text-gray-700 {
+            color: #d1d5db !important;
+        }
+
+        [data-theme="dark"] .text-gray-600 {
+            color: #9ca3af !important;
+        }
+
+        [data-theme="dark"] .text-gray-500 {
+            color: #6b7280 !important;
+        }
+
+        [data-theme="dark"] .text-blue-600 {
+            color: #60a5fa !important;
+        }
+
+        [data-theme="dark"] .text-blue-700 {
+            color: #93c5fd !important;
+        }
+
+        [data-theme="dark"] .text-purple-600 {
+            color: #c084fc !important;
+        }
+
+        [data-theme="dark"] .text-green-600 {
+            color: #4ade80 !important;
+        }
+
+        [data-theme="dark"] .text-green-700 {
+            color: #65d97c !important;
+        }
+
+        [data-theme="dark"] .text-yellow-700 {
+            color: #facc15 !important;
+        }
+
+        [data-theme="dark"] .text-yellow-600 {
+            color: #eab308 !important;
+        }
+
+        [data-theme="dark"] .text-red-700 {
+            color: #f87171 !important;
+        }
+
+        [data-theme="dark"] .text-red-600 {
+            color: #ef4444 !important;
+        }
+
+        [data-theme="dark"] .bg-blue-50 {
+            background-color: #1e3a8a !important;
+        }
+
+        [data-theme="dark"] .bg-green-50 {
+            background-color: #065f46 !important;
+        }
+
+        [data-theme="dark"] .bg-yellow-50 {
+            background-color: #78350f !important;
+        }
+
+        [data-theme="dark"] .bg-red-50 {
+            background-color: #7f1d1d !important;
+        }
+
+        [data-theme="dark"] .bg-purple-50 {
+            background-color: #581c87 !important;
+        }
+
         @media print {
             .no-print { display: none !important; }
             body { background: white !important; }
@@ -121,7 +194,11 @@
             background-color: #eff6ff;
         }
 
-        /* 감정 칩 스타일 */
+        [data-theme="dark"] .quadrant.highlight {
+            background-color: rgba(59, 130, 246, 0.2);
+        }
+
+        /* 감정 칩 스타일 - 드래그 가능하도록 개선 */
         .emotion-chip, .emotion-in-quadrant {
             display: inline-block;
             margin: 4px;
@@ -130,15 +207,29 @@
             border-radius: 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             font-size: 14px;
-            cursor: pointer;
+            cursor: move; /* 드래그 가능한 커서로 변경 */
             transition: all 0.2s ease;
             touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        [data-theme="dark"] .emotion-chip,
+        [data-theme="dark"] .emotion-in-quadrant {
+            background: #374151;
+            color: #f3f4f6;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .emotion-chip:hover, .emotion-in-quadrant:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        /* 드래그 중일 때 스타일 */
+        .emotion-dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
         }
 
         /* 음성 버튼 */
@@ -158,10 +249,20 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        [data-theme="dark"] .voice-btn {
+            background: #374151;
+            border-color: #6b7280;
+            color: #f3f4f6;
+        }
+
         .voice-btn.listening {
             border-color: #ef4444;
             background: #fef2f2;
             animation: pulse-recording 1.5s infinite;
+        }
+
+        [data-theme="dark"] .voice-btn.listening {
+            background: #7f1d1d;
         }
 
         @keyframes pulse-recording {
@@ -249,10 +350,10 @@
             </button>
 
             <!-- 글자 크기 조절 -->
-            <button id="fontIncrease" class="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg" aria-label="글자 크기 크게">
+            <button id="fontIncrease" class="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg text-gray-700 dark:text-gray-300" aria-label="글자 크기 크게">
                 A+
             </button>
-            <button id="fontDecrease" class="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg" aria-label="글자 크기 작게">
+            <button id="fontDecrease" class="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg text-gray-700 dark:text-gray-300" aria-label="글자 크기 작게">
                 A-
             </button>
 
@@ -273,7 +374,7 @@
                         내 마음을 4가지로 나누어 탐험해보자!
                     </p>
                     <div class="mt-2">
-                        <button id="historyBtn" class="text-blue-600 hover:text-blue-800 text-sm underline">
+                        <button id="historyBtn" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm underline">
                             📊 나의 감정 히스토리 보기
                         </button>
                     </div>
@@ -309,7 +410,7 @@
                     </div>
 
                     <!-- 스와이프 힌트 -->
-                    <div class="swipe-hint text-gray-400 text-xs absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-50">
+                    <div class="swipe-hint text-gray-400 dark:text-gray-500 text-xs absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-50">
                         ← 스와이프하여 이동 →
                     </div>
                 </main>
@@ -363,7 +464,7 @@ touch-action-manipulation min-h-[44px]" aria-label="이전 단계">
 
                     <!-- 초기화 버튼 -->
                     <button id="resetBtn" 
-                            class="flex items-center px-3 py-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-xl font-medium transition-colors min-h-[44px]"
+                            class="flex items-center px-3 py-2 text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900 rounded-xl font-medium transition-colors min-h-[44px]"
                             title="모든 데이터를 초기화합니다">
                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
@@ -382,7 +483,7 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
 
                 <!-- Help Message -->
                 <div id="helpMessage" class="text-center mt-2 sm:mt-4 hidden px-2">
-                    <p class="text-orange-600 bg-orange-50 px-3 sm:px-4 py-2 rounded-lg inline-block text-sm">
+                    <p class="text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900 px-3 sm:px-4 py-2 rounded-lg inline-block text-sm">
                         📝 감정을 선택해야 다음 단계로 갈 수 있어요
                     </p>
                 </div>
@@ -392,9 +493,9 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
 
     <!-- Loading overlay -->
     <div id="loadingOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-        <div class="bg-white p-4 sm:p-6 rounded-lg text-center mx-4">
+        <div class="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-lg text-center mx-4">
             <div class="animate-spin rounded-full h-8 w-8 sm:h-12 sm:w-12 border-b-2 border-blue-500 mx-auto"></div>
-            <p class="mt-2 sm:mt-4 text-gray-700 text-sm sm:text-base">처리 중...</p>
+            <p class="mt-2 sm:mt-4 text-gray-700 dark:text-gray-300 text-sm sm:text-base">처리 중...</p>
         </div>
     </div>
 
@@ -402,7 +503,7 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
     <div id="historyModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
         <div class="flex items-center justify-center h-full p-4">
             <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
-                <h2 class="text-2xl font-bold mb-4">📊 나의 감정 히스토리</h2>
+                <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">📊 나의 감정 히스토리</h2>
                 <canvas id="emotionChart" width="400" height="200"></canvas>
                 <div id="historyList" class="mt-4">
                     <!-- 히스토리 목록 -->
@@ -1074,37 +1175,37 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                     content = `
                         <div class="text-center space-y-6">
                             <div class="text-6xl mb-4 bounce-animation">🎴</div>
-                            <h2 class="text-2xl md:text-3xl font-bold text-blue-600 mb-4">감정 카드 탐험하기</h2>
+                            <h2 class="text-2xl md:text-3xl font-bold text-blue-600 dark:text-blue-400 mb-4">감정 카드 탐험하기</h2>
                             <div class="max-w-2xl mx-auto">
-                                <p class="text-lg text-gray-700 mb-6">
+                                <p class="text-lg text-gray-700 dark:text-gray-300 mb-6">
                                     오늘은 여러분의 마음 속에 있는 다양한 감정들을 탐험해볼 거예요!
                                 </p>
-                                <div class="bg-blue-50 p-6 rounded-xl">
-                                    <h3 class="text-xl font-bold text-blue-700 mb-4">🔍 어떤 탐험을 할까요?</h3>
+                                <div class="bg-blue-50 dark:bg-blue-900 p-6 rounded-xl">
+                                    <h3 class="text-xl font-bold text-blue-700 dark:text-blue-300 mb-4">🔍 어떤 탐험을 할까요?</h3>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div class="bg-white p-4 rounded-lg">
+                                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg">
                                             <div class="text-3xl mb-2">🎴</div>
-                                            <h4 class="font-bold text-blue-600">1단계: 감정 카드 구경하기</h4>
-                                            <p class="text-sm text-gray-600">20가지 감정 카드를 둘러보며 어떤 감정들이 있는지 알아봐요</p>
+                                            <h4 class="font-bold text-blue-600 dark:text-blue-400">1단계: 감정 카드 구경하기</h4>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">20가지 감정 카드를 둘러보며 어떤 감정들이 있는지 알아봐요</p>
                                         </div>
-                                        <div class="bg-white p-4 rounded-lg">
+                                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg">
                                             <div class="text-3xl mb-2">❤️</div>
-                                            <h4 class="font-bold text-blue-600">2단계: 내 마음 감정 고르기</h4>
-                                            <p class="text-sm text-gray-600">지금 내 마음에 있는 감정들을 골라봐요</p>
+                                            <h4 class="font-bold text-blue-600 dark:text-blue-400">2단계: 내 마음 감정 고르기</h4>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">지금 내 마음에 있는 감정들을 골라봐요</p>
                                         </div>
-                                        <div class="bg-white p-4 rounded-lg">
+                                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg">
                                             <div class="text-3xl mb-2">📊</div>
-                                            <h4 class="font-bold text-blue-600">3단계: 감정 4분면 만들기</h4>
-                                            <p class="text-sm text-gray-600">감정을 4가지 그룹으로 나누어 정리해봐요</p>
+                                            <h4 class="font-bold text-blue-600 dark:text-blue-400">3단계: 감정 4분면 만들기</h4>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">감정을 4가지 그룹으로 나누어 정리해봐요</p>
                                         </div>
-                                        <div class="bg-white p-4 rounded-lg">
+                                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg">
                                             <div class="text-3xl mb-2">📖</div>
-                                            <h4 class="font-bold text-blue-600">4단계: 나만의 감정 이야기</h4>
-                                            <p class="text-sm text-gray-600">내가 고른 감정들로 나만의 이야기를 만들어봐요</p>
+                                            <h4 class="font-bold text-blue-600 dark:text-blue-400">4단계: 나만의 감정 이야기</h4>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">내가 고른 감정들로 나만의 이야기를 만들어봐요</p>
                                         </div>
                                     </div>
                                 </div>
-                                <p class="text-gray-600 mt-6">
+                                <p class="text-gray-600 dark:text-gray-400 mt-6">
                                     💡 <strong>"찝찝함"</strong>도 감정이에요! 여러분이 느끼는 모든 것이 소중한 감정이랍니다.
                                 </p>
                             </div>
@@ -1116,12 +1217,12 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                     content = `
                         <div class="space-y-6">
                             <div class="text-center">
-                                <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                                <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">
                                     🎴 내 마음에 맞는 감정 고르기
                                 </h2>
-                                <p class="text-gray-700 mb-6">
+                                <p class="text-gray-700 dark:text-gray-300 mb-6">
                                     아래 감정 카드들을 살펴보고, 지금 내 마음에 있는 감정들을 골라주세요!<br>
-                                    <span class="text-blue-600 font-semibold">여러 개를 선택해도 괜찮아요 ✨</span>
+                                    <span class="text-blue-600 dark:text-blue-400 font-semibold">여러 개를 선택해도 괜찮아요 ✨</span>
                                 </p>
                             </div>
                             
@@ -1134,21 +1235,21 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                                             class="emotion-card p-4 rounded-xl border-2 transition-all ${
                                                 isSelected
                                                     ? `${emotion.color} border-blue-400 selected`
-                                                    : 'bg-white border-gray-200 hover:border-blue-200'
+                                                    : 'bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 hover:border-blue-200'
                                             }"
                                             aria-pressed="${isSelected ? 'true' : 'false'}"
                                         >
                                             <div class="text-3xl mb-2 text-center">${emotion.emoji}</div>
-                                            <div class="text-sm font-medium text-center">${emotion.name}</div>
-                                            <div class="text-xs text-gray-500 text-center mt-1">${emotion.description}</div>
+                                            <div class="text-sm font-medium text-center text-gray-900 dark:text-gray-100">${emotion.name}</div>
+                                            <div class="text-xs text-gray-500 dark:text-gray-400 text-center mt-1">${emotion.description}</div>
                                         </div>
                                     `;
                                 }).join('')}
                             </div>
                             
                             ${appState.selectedEmotions.length > 0 ? `
-                                <div class="bg-green-50 p-4 rounded-xl">
-                                    <h3 class="font-bold text-green-700 mb-3">✨ 선택한 감정들:</h3>
+                                <div class="bg-green-50 dark:bg-green-900 p-4 rounded-xl">
+                                    <h3 class="font-bold text-green-700 dark:text-green-300 mb-3">✨ 선택한 감정들:</h3>
                                     <div class="flex flex-wrap gap-2">
                                         ${appState.selectedEmotions.map(emotion => `
                                             <span class="px-3 py-1 rounded-full ${emotion.color} text-sm font-medium">
@@ -1156,14 +1257,14 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                                             </span>
                                         `).join('')}
                                     </div>
-                                    <p class="text-sm text-green-600 mt-3">
+                                    <p class="text-sm text-green-600 dark:text-green-400 mt-3">
                                         🎉 ${appState.selectedEmotions.length}개의 감정을 선택했어요! 다음 단계로 넘어가볼까요?
                                     </p>
                                 </div>
                             ` : ''}
                             
-                            <div class="bg-yellow-50 p-4 rounded-xl">
-                                <p class="text-yellow-800 text-sm">
+                            <div class="bg-yellow-50 dark:bg-yellow-900 p-4 rounded-xl">
+                                <p class="text-yellow-800 dark:text-yellow-300 text-sm">
                                     💭 <strong>기억하세요!</strong> 슬픈 감정도 괜찮아요. 슬픔은 여러분이 무언가를 소중히 여긴다는 증거예요.
                                 </p>
                             </div>
@@ -1175,20 +1276,20 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                     content = `
                         <div class="space-y-6">
                             <div class="text-center">
-                                <h2 class="text-2xl font-bold text-purple-600 mb-4">
+                                <h2 class="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-4">
                                     📊 감정 4분면 만들기
                                 </h2>
-                                <p class="text-gray-700 mb-6">
+                                <p class="text-gray-700 dark:text-gray-300 mb-6">
                                     선택한 감정들을 4개의 그룹으로 나누어 볼까요?<br>
-                                    <span class="text-purple-600 font-semibold">감정 카드를 탭하고 이동할 위치를 선택하세요!</span>
+                                    <span class="text-purple-600 dark:text-purple-400 font-semibold">감정 카드를 드래그해서 원하는 위치로 이동하세요!</span>
                                 </p>
                             </div>
 
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                 <!-- 감정 카드 영역 -->
-                                <div class="bg-gray-50 p-4 rounded-xl">
-                                    <h3 class="font-bold text-gray-700 mb-3">🎴 선택한 감정 카드들</h3>
-                                    <div id="emotionSource" class="min-h-[100px] flex flex-wrap gap-2">
+                                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-xl">
+                                    <h3 class="font-bold text-gray-700 dark:text-gray-300 mb-3">🎴 선택한 감정 카드들</h3>
+                                    <div id="emotionSource" class="min-h-[100px] flex flex-wrap gap-2 p-2 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg">
                                         ${appState.selectedEmotions
                                             .filter(emotion => !Object.values(appState.quadrantEmotions).some(arr => 
                                                 arr.find(e => e.name === emotion.name)
@@ -1203,6 +1304,9 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                                                 </div>
                                             `).join('')}
                                     </div>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                                        💡 감정 카드를 드래그해서 4분면으로 이동하세요!
+                                    </p>
                                 </div>
 
                                 <!-- 4분면 영역 -->
@@ -1210,16 +1314,16 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                                     <div class="grid grid-cols-2 gap-4">
                                         <!-- 긍정 + 높은 에너지 -->
                                         <div 
-                                            class="quadrant p-4 rounded-xl bg-yellow-50"
+                                            class="quadrant p-4 rounded-xl bg-yellow-50 dark:bg-yellow-900"
                                             data-quadrant="positive_high"
                                         >
-                                            <h4 class="font-bold text-yellow-700 mb-2 text-center">
+                                            <h4 class="font-bold text-yellow-700 dark:text-yellow-300 mb-2 text-center">
                                                 ⚡ 신나는 감정
                                             </h4>
-                                            <p class="text-xs text-yellow-600 text-center mb-3">기쁘고 에너지 넘치는</p>
+                                            <p class="text-xs text-yellow-600 dark:text-yellow-400 text-center mb-3">기쁘고 에너지 넘치는</p>
                                             <div class="min-h-[80px] flex flex-wrap gap-1">
                                                 ${appState.quadrantEmotions.positive_high.map(emotion => `
-                                                    <div class="emotion-chip emotion-in-quadrant ${emotion.color}" data-emotion='${JSON.stringify(emotion)}'>
+                                                    <div draggable="true" class="emotion-chip emotion-in-quadrant ${emotion.color}" data-emotion='${JSON.stringify(emotion)}'>
                                                         ${emotion.emoji} ${emotion.name}
                                                     </div>
                                                 `).join('')}
@@ -1228,16 +1332,16 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
 
                                         <!-- 긍정 + 낮은 에너지 -->
                                         <div 
-                                            class="quadrant p-4 rounded-xl bg-green-50"
+                                            class="quadrant p-4 rounded-xl bg-green-50 dark:bg-green-900"
                                             data-quadrant="positive_low"
                                         >
-                                            <h4 class="font-bold text-green-700 mb-2 text-center">
+                                            <h4 class="font-bold text-green-700 dark:text-green-300 mb-2 text-center">
                                                 🌱 평온한 감정
                                             </h4>
-                                            <p class="text-xs text-green-600 text-center mb-3">좋지만 차분한</p>
+                                            <p class="text-xs text-green-600 dark:text-green-400 text-center mb-3">좋지만 차분한</p>
                                             <div class="min-h-[80px] flex flex-wrap gap-1">
                                                 ${appState.quadrantEmotions.positive_low.map(emotion => `
-                                                    <div class="emotion-chip emotion-in-quadrant ${emotion.color}" data-emotion='${JSON.stringify(emotion)}'>
+                                                    <div draggable="true" class="emotion-chip emotion-in-quadrant ${emotion.color}" data-emotion='${JSON.stringify(emotion)}'>
                                                         ${emotion.emoji} ${emotion.name}
                                                     </div>
                                                 `).join('')}
@@ -1246,16 +1350,16 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
 
                                         <!-- 부정 + 높은 에너지 -->
                                         <div 
-                                            class="quadrant p-4 rounded-xl bg-red-50"
+                                            class="quadrant p-4 rounded-xl bg-red-50 dark:bg-red-900"
                                             data-quadrant="negative_high"
                                         >
-                                            <h4 class="font-bold text-red-700 mb-2 text-center">
+                                            <h4 class="font-bold text-red-700 dark:text-red-300 mb-2 text-center">
                                                 🔥 격한 감정
                                             </h4>
-                                            <p class="text-xs text-red-600 text-center mb-3">힘들고 에너지 많은</p>
+                                            <p class="text-xs text-red-600 dark:text-red-400 text-center mb-3">힘들고 에너지 많은</p>
                                             <div class="min-h-[80px] flex flex-wrap gap-1">
                                                 ${appState.quadrantEmotions.negative_high.map(emotion => `
-                                                    <div class="emotion-chip emotion-in-quadrant ${emotion.color}" data-emotion='${JSON.stringify(emotion)}'>
+                                                    <div draggable="true" class="emotion-chip emotion-in-quadrant ${emotion.color}" data-emotion='${JSON.stringify(emotion)}'>
                                                         ${emotion.emoji} ${emotion.name}
                                                     </div>
                                                 `).join('')}
@@ -1264,16 +1368,16 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
 
                                         <!-- 부정 + 낮은 에너지 -->
                                         <div 
-                                            class="quadrant p-4 rounded-xl bg-blue-50"
+                                            class="quadrant p-4 rounded-xl bg-blue-50 dark:bg-blue-900"
                                             data-quadrant="negative_low"
                                         >
-                                            <h4 class="font-bold text-blue-700 mb-2 text-center">
+                                            <h4 class="font-bold text-blue-700 dark:text-blue-300 mb-2 text-center">
                                                 💧 가라앉은 감정
                                             </h4>
-                                            <p class="text-xs text-blue-600 text-center mb-3">힘들고 축 처진</p>
+                                            <p class="text-xs text-blue-600 dark:text-blue-400 text-center mb-3">힘들고 축 처진</p>
                                             <div class="min-h-[80px] flex flex-wrap gap-1">
                                                 ${appState.quadrantEmotions.negative_low.map(emotion => `
-                                                    <div class="emotion-chip emotion-in-quadrant ${emotion.color}" data-emotion='${JSON.stringify(emotion)}'>
+                                                    <div draggable="true" class="emotion-chip emotion-in-quadrant ${emotion.color}" data-emotion='${JSON.stringify(emotion)}'>
                                                         ${emotion.emoji} ${emotion.name}
                                                     </div>
                                                 `).join('')}
@@ -1283,9 +1387,9 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                                 </div>
                             </div>
 
-                            <div class="bg-purple-50 p-4 rounded-xl">
-                                <p class="text-purple-800 text-sm">
-                                    💡 <strong>모바일 사용법:</strong> 감정을 길게 눌러 이동하거나, 탭해서 선택 후 이동할 위치를 탭하세요!
+                            <div class="bg-purple-50 dark:bg-purple-900 p-4 rounded-xl">
+                                <p class="text-purple-800 dark:text-purple-300 text-sm">
+                                    💡 <strong>사용법:</strong> 감정 카드를 마우스로 드래그하여 원하는 4분면으로 이동하세요! 모바일에서는 길게 눌러 이동하거나, 탭해서 선택 후 이동할 위치를 탭하세요!
                                 </p>
                             </div>
                         </div>
@@ -1296,17 +1400,17 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                     content = `
                         <div class="space-y-6">
                             <div class="text-center">
-                                <h2 class="text-2xl font-bold text-green-600 mb-4">
+                                <h2 class="text-2xl font-bold text-green-600 dark:text-green-400 mb-4">
                                     📖 나만의 감정 이야기
                                 </h2>
-                                <p class="text-gray-700 mb-6">
+                                <p class="text-gray-700 dark:text-gray-300 mb-6">
                                     내가 선택한 감정들로 나만의 특별한 이야기를 만들어주세요!
                                 </p>
                             </div>
 
                             <!-- 내가 만든 4분면 요약 -->
-                            <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl">
-                                <h3 class="font-bold text-gray-700 mb-4 text-center">🎨 내가 만든 감정 4분면</h3>
+                            <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900 dark:to-purple-900 p-6 rounded-xl">
+                                <h3 class="font-bold text-gray-700 dark:text-gray-300 mb-4 text-center">🎨 내가 만든 감정 4분면</h3>
                                 <div class="grid grid-cols-2 gap-4">
                                     ${['positive_high', 'positive_low', 'negative_high', 'negative_low'].map(quadrant => {
                                         const titles = {
@@ -1316,8 +1420,8 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                                             negative_low: '💧 가라앉은 감정'
                                         };
                                         return `
-                                            <div class="bg-white p-3 rounded-lg">
-                                                <h4 class="font-semibold text-sm mb-2">${titles[quadrant]}</h4>
+                                            <div class="bg-white dark:bg-gray-700 p-3 rounded-lg">
+                                                <h4 class="font-semibold text-sm mb-2 text-gray-900 dark:text-gray-100">${titles[quadrant]}</h4>
                                                 <div class="flex flex-wrap gap-1">
                                                     ${appState.quadrantEmotions[quadrant].map(emotion => `
                                                         <span class="text-xs px-2 py-1 rounded ${emotion.color}">
@@ -1332,32 +1436,32 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                             </div>
 
                             <!-- 음성 입력이 가능한 텍스트 영역 -->
-                            <div class="bg-green-50 p-6 rounded-xl">
-                                <h3 class="font-bold text-green-700 mb-3">✍️ 나의 감정 이야기를 들려주세요</h3>
-                                <p class="text-green-600 text-sm mb-4">
+                            <div class="bg-green-50 dark:bg-green-900 p-6 rounded-xl">
+                                <h3 class="font-bold text-green-700 dark:text-green-300 mb-3">✍️ 나의 감정 이야기를 들려주세요</h3>
+                                <p class="text-green-600 dark:text-green-400 text-sm mb-4">
                                     예시: "저는 오늘 기뻐요와 편안해요를 느꼈어요. 왜냐하면 가족과 함께 즐거운 시간을 보냈기 때문이에요..."
                                 </p>
                                 <div class="flex items-start gap-2">
                                     <textarea
                                         id="personalStoryInput"
                                         placeholder="내가 선택한 감정들이 언제, 왜 생겼는지 이야기해주세요..."
-                                        class="flex-1 h-32 p-4 border-2 border-green-200 rounded-lg focus:border-green-400 outline-none resize-none text-base"
+                                        class="flex-1 h-32 p-4 border-2 border-green-200 dark:border-green-600 rounded-lg focus:border-green-400 dark:focus:border-green-400 outline-none resize-none text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                                         style="font-size: 16px;"
                                     >${appState.personalStory}</textarea>
                                     ${isVoiceSupported ? '<div id="voiceButtonContainer"></div>' : ''}
                                 </div>
-                                <p class="text-xs text-green-500 mt-2">
+                                <p class="text-xs text-green-500 dark:text-green-400 mt-2">
                                     💭 감정에는 정답이 없어요. 여러분이 느끼는 모든 감정이 소중해요!
                                 </p>
                             </div>
 
                             ${appState.personalStory.trim() !== '' ? `
-                                <div class="bg-yellow-50 p-4 rounded-xl">
-                                    <h3 class="font-bold text-yellow-700 mb-2">🌟 완성된 나의 감정 이야기</h3>
-                                    <p class="text-gray-700 bg-white p-3 rounded border-l-4 border-yellow-400">
+                                <div class="bg-yellow-50 dark:bg-yellow-900 p-4 rounded-xl">
+                                    <h3 class="font-bold text-yellow-700 dark:text-yellow-300 mb-2">🌟 완성된 나의 감정 이야기</h3>
+                                    <p class="text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 p-3 rounded border-l-4 border-yellow-400">
                                         ${appState.personalStory}
                                     </p>
-                                    <p class="text-sm text-yellow-600 mt-3">
+                                    <p class="text-sm text-yellow-600 dark:text-yellow-400 mt-3">
                                         👏 멋진 이야기를 완성했네요! 이제 친구들과 나누어보세요.
                                     </p>
                                 </div>
@@ -1400,8 +1504,8 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                     break;
 
                 case 2:
-                    // 드래그 앤 드롭 이벤트
-                    setupDragAndDrop();
+                    // 드래그 앤 드롭 이벤트 - 개선된 버전
+                    setupEnhancedDragAndDrop();
                     // 모바일 터치 이벤트
                     setupMobileTouchEnhancements();
                     break;
@@ -1444,51 +1548,85 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
             saveToStorage();
         }
 
-        // 드래그 앤 드롭 설정
-        function setupDragAndDrop() {
-            // 드래그 가능한 요소들
-            const draggableElements = document.querySelectorAll('[draggable="true"]');
-            const quadrants = document.querySelectorAll('.quadrant');
+        // 개선된 드래그 앤 드롭 설정
+        function setupEnhancedDragAndDrop() {
+            // 모든 드래그 가능한 요소들 (소스 영역과 4분면 모두 포함)
+            const updateDragElements = () => {
+                const draggableElements = document.querySelectorAll('[draggable="true"]');
+                const dropTargets = [...document.querySelectorAll('.quadrant'), document.getElementById('emotionSource')];
 
-            draggableElements.forEach(element => {
-                element.addEventListener('dragstart', (e) => {
-                    e.dataTransfer.setData('text/plain', element.dataset.emotion);
-                });
-            });
+                draggableElements.forEach(element => {
+                    // 기존 이벤트 리스너 제거 방지를 위해 clone으로 교체
+                    const newElement = element.cloneNode(true);
+                    element.parentNode.replaceChild(newElement, element);
 
-            quadrants.forEach(quadrant => {
-                quadrant.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    quadrant.classList.add('highlight');
-                });
-
-                quadrant.addEventListener('dragleave', () => {
-                    quadrant.classList.remove('highlight');
-                });
-
-                quadrant.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    const emotionData = e.dataTransfer.getData('text/plain');
-                    const emotion = JSON.parse(emotionData);
-                    const quadrantType = quadrant.dataset.quadrant;
-
-                    // 기존 위치에서 제거
-                    Object.keys(appState.quadrantEmotions).forEach(key => {
-                        appState.quadrantEmotions[key] = appState.quadrantEmotions[key].filter(e => e.name !== emotion.name);
+                    // 드래그 시작
+                    newElement.addEventListener('dragstart', (e) => {
+                        e.dataTransfer.setData('text/plain', newElement.dataset.emotion);
+                        newElement.classList.add('emotion-dragging');
+                        playSound('click');
                     });
 
-                    // 새 위치에 추가
-                    appState.quadrantEmotions[quadrantType].push(emotion);
-
-                    quadrant.classList.remove('highlight');
-                    renderStep();
-                    updateUI();
-                    saveToStorage();
+                    // 드래그 종료
+                    newElement.addEventListener('dragend', (e) => {
+                        newElement.classList.remove('emotion-dragging');
+                    });
                 });
-            });
+
+                dropTargets.forEach(target => {
+                    // 기존 이벤트 리스너 제거
+                    const newTarget = target.cloneNode(true);
+                    target.parentNode.replaceChild(newTarget, target);
+
+                    // 드래그 오버
+                    newTarget.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        newTarget.classList.add('highlight');
+                    });
+
+                    // 드래그 떠남
+                    newTarget.addEventListener('dragleave', (e) => {
+                        // 자식 요소로 이동하는 경우 제외
+                        if (!newTarget.contains(e.relatedTarget)) {
+                            newTarget.classList.remove('highlight');
+                        }
+                    });
+
+                    // 드롭
+                    newTarget.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        const emotionData = e.dataTransfer.getData('text/plain');
+                        if (!emotionData) return;
+
+                        const emotion = JSON.parse(emotionData);
+                        
+                        // 기존 위치에서 제거
+                        Object.keys(appState.quadrantEmotions).forEach(key => {
+                            appState.quadrantEmotions[key] = appState.quadrantEmotions[key].filter(e => e.name !== emotion.name);
+                        });
+
+                        // 새 위치에 추가 (소스 영역이 아닌 경우만)
+                        if (newTarget.dataset.quadrant) {
+                            appState.quadrantEmotions[newTarget.dataset.quadrant].push(emotion);
+                        }
+
+                        newTarget.classList.remove('highlight');
+                        
+                        // UI 업데이트 및 이벤트 재설정
+                        renderStep();
+                        updateUI();
+                        saveToStorage();
+                        playSound('success');
+                        showToast(`감정이 이동되었어요! 🎯`);
+                    });
+                });
+            };
+
+            // 초기 설정
+            updateDragElements();
         }
 
-        // 모바일 터치 환경 개선 코드
+        // 모바일 터치 환경 개선 코드 (기존과 동일하지만 다크모드 지원 추가)
         function setupMobileTouchEnhancements() {
             'use strict';
 
@@ -1799,7 +1937,7 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                 }
             }
 
-            // 컨텍스트 메뉴
+            // 컨텍스트 메뉴 (다크모드 지원 개선)
             const contextMenu = {
                 show(chip, touch) {
                     try {
@@ -1821,7 +1959,7 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
 
                 create(emotion) {
                     const menu = document.createElement('div');
-                    menu.className = 'mobile-context-menu fixed bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 max-w-sm w-full mx-4';
+                    menu.className = 'mobile-context-menu fixed bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 max-w-sm w-full mx-4 border dark:border-gray-600';
                     menu.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;';
 
                     const language = appState.language || 'ko';
@@ -1843,7 +1981,7 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                         
                         <div class="space-y-3">
                             ${currentLocation !== 'source' ? `
-                                <button class="menu-action-btn w-full py-3 px-4 bg-blue-500 text-white rounded-xl flex items-center justify-center space-x-2 text-sm font-medium"
+                                <button class="menu-action-btn w-full py-3 px-4 bg-blue-500 hover:bg-blue-600 text-white rounded-xl flex items-center justify-center space-x-2 text-sm font-medium"
                                         data-action="source" data-emotion='${JSON.stringify(emotion)}'>
                                     <span>🔄</span>
                                     <span>분류함으로 되돌리기</span>
@@ -1858,16 +1996,16 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                                     .map(([key, info]) => {
                                         const titleParts = info.title[language].split(' ');
                                         return `
-                                            <button class="menu-action-btn py-3 px-2 ${info.color} border-2 border-gray-200 rounded-xl text-xs font-medium text-center"
+                                            <button class="menu-action-btn py-3 px-2 ${info.color} dark:bg-opacity-20 border-2 border-gray-200 dark:border-gray-600 rounded-xl text-xs font-medium text-center hover:opacity-80"
                                                     data-action="${key}" data-emotion='${JSON.stringify(emotion)}'>
                                                 <div class="text-lg mb-1">${titleParts[0] || ''}</div>
-                                                <div>${titleParts[1] || ''}</div>
+                                                <div class="text-gray-700 dark:text-gray-300">${titleParts[1] || ''}</div>
                                             </button>
                                         `;
                                     }).join('')}
                             </div>
                             
-                            <button class="menu-close-btn w-full py-3 px-4 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-xl text-sm font-medium">
+                            <button class="menu-close-btn w-full py-3 px-4 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-xl text-sm font-medium hover:bg-gray-300 dark:hover:bg-gray-500">
                                 취소
                             </button>
                         </div>
