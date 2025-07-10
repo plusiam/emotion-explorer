@@ -192,6 +192,7 @@
         .quadrant.highlight {
             border-color: #3b82f6;
             background-color: #eff6ff;
+            transform: scale(1.02);
         }
 
         [data-theme="dark"] .quadrant.highlight {
@@ -203,22 +204,22 @@
             display: inline-block;
             margin: 4px;
             padding: 8px 12px;
-            background: white;
             border-radius: 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             font-size: 14px;
-            cursor: move; /* 드래그 가능한 커서로 변경 */
+            font-weight: 600;
+            cursor: move;
             transition: all 0.2s ease;
             touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
             user-select: none;
+            border: 1px solid rgba(0,0,0,0.1);
         }
 
         [data-theme="dark"] .emotion-chip,
         [data-theme="dark"] .emotion-in-quadrant {
-            background: #374151;
-            color: #f3f4f6;
             box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .emotion-chip:hover, .emotion-in-quadrant:hover {
@@ -229,7 +230,9 @@
         /* 드래그 중일 때 스타일 */
         .emotion-dragging {
             opacity: 0.5;
-            transform: rotate(5deg);
+            transform: rotate(5deg) scale(1.1);
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
 
         /* 음성 버튼 */
@@ -561,7 +564,6 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
             },
             personalStory: '',
             reflection: '',
-            // 추가 상태
             soundEnabled: true,
             fontSize: 'normal',
             theme: 'light',
@@ -570,61 +572,65 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
             language: 'ko'
         };
 
-        // 4분면 정보
+        // 4분면 정보 (접근성 개선된 색상)
         const quadrantInfo = {
             positive_high: {
                 title: { ko: '⚡ 신나는 감정', en: '⚡ Exciting' },
-                color: 'bg-yellow-50',
+                color: 'bg-yellow-50 border-yellow-200 dark:bg-yellow-900 dark:border-yellow-700',
+                textColor: 'text-yellow-800 dark:text-yellow-200',
                 description: { ko: '기쁘고 에너지 넘치는', en: 'Joyful and energetic' }
             },
             positive_low: {
                 title: { ko: '🌱 평온한 감정', en: '🌱 Peaceful' },
-                color: 'bg-green-50',
+                color: 'bg-green-50 border-green-200 dark:bg-green-900 dark:border-green-700',
+                textColor: 'text-green-800 dark:text-green-200',
                 description: { ko: '좋지만 차분한', en: 'Good but calm' }
             },
             negative_high: {
                 title: { ko: '🔥 격한 감정', en: '🔥 Intense' },
-                color: 'bg-red-50',
+                color: 'bg-red-50 border-red-200 dark:bg-red-900 dark:border-red-700',
+                textColor: 'text-red-800 dark:text-red-200',
                 description: { ko: '힘들고 에너지 많은', en: 'Difficult and energetic' }
             },
             negative_low: {
                 title: { ko: '💧 가라앉은 감정', en: '💧 Low' },
-                color: 'bg-blue-50',
+                color: 'bg-blue-50 border-blue-200 dark:bg-blue-900 dark:border-blue-700',
+                textColor: 'text-blue-800 dark:text-blue-200',
                 description: { ko: '힘들고 축 처진', en: 'Difficult and low energy' }
             }
         };
 
-        // 확장된 감정 카드 데이터
+        // 확장된 감정 카드 데이터 (접근성 개선된 색상)
         const emotionCards = [
             // 긍정 + 높은 에너지
-            { emoji: '😊', name: '기뻐요', energy: 'high', valence: 'positive', color: 'bg-yellow-200', description: '신나고 즐거운 마음' },
-            { emoji: '🥳', name: '신나요', energy: 'high', valence: 'positive', color: 'bg-yellow-200', description: '파티하고 싶은 마음' },
-            { emoji: '😆', name: '웃겨요', energy: 'high', valence: 'positive', color: 'bg-yellow-200', description: '배꼽 빠지게 웃긴 마음' },
-            { emoji: '🤩', name: '감탄해요', energy: 'high', valence: 'positive', color: 'bg-yellow-200', description: '와! 대단한 마음' },
+            { emoji: '😊', name: '기뻐요', energy: 'high', valence: 'positive', color: 'bg-yellow-100 text-yellow-900 dark:bg-yellow-800 dark:text-yellow-100', description: '신나고 즐거운 마음' },
+            { emoji: '🥳', name: '신나요', energy: 'high', valence: 'positive', color: 'bg-yellow-100 text-yellow-900 dark:bg-yellow-800 dark:text-yellow-100', description: '파티하고 싶은 마음' },
+            { emoji: '😆', name: '웃겨요', energy: 'high', valence: 'positive', color: 'bg-yellow-100 text-yellow-900 dark:bg-yellow-800 dark:text-yellow-100', description: '배꼽 빠지게 웃긴 마음' },
+            { emoji: '🤩', name: '감탄해요', energy: 'high', valence: 'positive', color: 'bg-yellow-100 text-yellow-900 dark:bg-yellow-800 dark:text-yellow-100', description: '와! 대단한 마음' },
 
             // 긍정 + 낮은 에너지  
-            { emoji: '😌', name: '편안해요', energy: 'low', valence: 'positive', color: 'bg-green-200', description: '마음이 평온한 상태' },
-            { emoji: '🥰', name: '사랑해요', energy: 'low', valence: 'positive', color: 'bg-pink-200', description: '따뜻하고 포근한 마음' },
-            { emoji: '😴', name: '평화로워요', energy: 'low', valence: 'positive', color: 'bg-green-200', description: '아무 걱정 없는 마음' },
-            { emoji: '🤗', name: '따뜻해요', energy: 'low', valence: 'positive', color: 'bg-orange-200', description: '포근하고 안전한 마음' },
+            { emoji: '😌', name: '편안해요', energy: 'low', valence: 'positive', color: 'bg-green-100 text-green-900 dark:bg-green-800 dark:text-green-100', description: '마음이 평온한 상태' },
+            { emoji: '🥰', name: '사랑해요', energy: 'low', valence: 'positive', color: 'bg-rose-100 text-rose-900 dark:bg-rose-800 dark:text-rose-100', description: '따뜻하고 포근한 마음' },
+            { emoji: '😴', name: '평화로워요', energy: 'low', valence: 'positive', color: 'bg-green-100 text-green-900 dark:bg-green-800 dark:text-green-100', description: '아무 걱정 없는 마음' },
+            { emoji: '🤗', name: '따뜻해요', energy: 'low', valence: 'positive', color: 'bg-orange-100 text-orange-900 dark:bg-orange-800 dark:text-orange-100', description: '포근하고 안전한 마음' },
 
             // 부정 + 높은 에너지
-            { emoji: '😠', name: '화나요', energy: 'high', valence: 'negative', color: 'bg-red-200', description: '속상하고 열받는 마음' },
-            { emoji: '😤', name: '답답해요', energy: 'high', valence: 'negative', color: 'bg-red-200', description: '막막하고 숨 막히는 마음' },
-            { emoji: '🤯', name: '짜증나요', energy: 'high', valence: 'negative', color: 'bg-red-200', description: '참을 수 없이 거슬리는 마음' },
-            { emoji: '😡', name: '빡쳐요', energy: 'high', valence: 'negative', color: 'bg-red-200', description: '정말 정말 화나는 마음' },
+            { emoji: '😠', name: '화나요', energy: 'high', valence: 'negative', color: 'bg-red-100 text-red-900 dark:bg-red-800 dark:text-red-100', description: '속상하고 열받는 마음' },
+            { emoji: '😤', name: '답답해요', energy: 'high', valence: 'negative', color: 'bg-red-100 text-red-900 dark:bg-red-800 dark:text-red-100', description: '막막하고 숨 막히는 마음' },
+            { emoji: '🤯', name: '짜증나요', energy: 'high', valence: 'negative', color: 'bg-red-100 text-red-900 dark:bg-red-800 dark:text-red-100', description: '참을 수 없이 거슬리는 마음' },
+            { emoji: '😡', name: '빡쳐요', energy: 'high', valence: 'negative', color: 'bg-red-100 text-red-900 dark:bg-red-800 dark:text-red-100', description: '정말 정말 화나는 마음' },
 
             // 부정 + 낮은 에너지
-            { emoji: '😢', name: '슬퍼요', energy: 'low', valence: 'negative', color: 'bg-blue-200', description: '눈물이 날 것 같은 마음' },
-            { emoji: '😰', name: '걱정돼요', energy: 'low', valence: 'negative', color: 'bg-gray-200', description: '불안하고 무서운 마음' },
-            { emoji: '😔', name: '우울해요', energy: 'low', valence: 'negative', color: 'bg-blue-200', description: '축 처지고 우울한 마음' },
-            { emoji: '😟', name: '찝찝해요', energy: 'low', valence: 'negative', color: 'bg-gray-200', description: '뭔가 이상하고 찝찝한 마음' },
+            { emoji: '😢', name: '슬퍼요', energy: 'low', valence: 'negative', color: 'bg-blue-100 text-blue-900 dark:bg-blue-800 dark:text-blue-100', description: '눈물이 날 것 같은 마음' },
+            { emoji: '😰', name: '걱정돼요', energy: 'low', valence: 'negative', color: 'bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-gray-100', description: '불안하고 무서운 마음' },
+            { emoji: '😔', name: '우울해요', energy: 'low', valence: 'negative', color: 'bg-blue-100 text-blue-900 dark:bg-blue-800 dark:text-blue-100', description: '축 처지고 우울한 마음' },
+            { emoji: '😟', name: '찝찝해요', energy: 'low', valence: 'negative', color: 'bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-gray-100', description: '뭔가 이상하고 찝찝한 마음' },
 
             // 추가 다양한 감정들
-            { emoji: '😵‍💫', name: '헷갈려요', energy: 'high', valence: 'negative', color: 'bg-purple-200', description: '머리가 복잡한 마음' },
-            { emoji: '🤔', name: '궁금해요', energy: 'low', valence: 'positive', color: 'bg-indigo-200', description: '알고 싶은 마음' },
-            { emoji: '😳', name: '당황해요', energy: 'high', valence: 'negative', color: 'bg-pink-200', description: '어쩔 줄 모르는 마음' },
-            { emoji: '🤫', name: '조용해요', energy: 'low', valence: 'positive', color: 'bg-green-200', description: '고요하고 침묵하는 마음' }
+            { emoji: '😵‍💫', name: '헷갈려요', energy: 'high', valence: 'negative', color: 'bg-purple-100 text-purple-900 dark:bg-purple-800 dark:text-purple-100', description: '머리가 복잡한 마음' },
+            { emoji: '🤔', name: '궁금해요', energy: 'low', valence: 'positive', color: 'bg-indigo-100 text-indigo-900 dark:bg-indigo-800 dark:text-indigo-100', description: '알고 싶은 마음' },
+            { emoji: '😳', name: '당황해요', energy: 'high', valence: 'negative', color: 'bg-pink-100 text-pink-900 dark:bg-pink-800 dark:text-pink-100', description: '어쩔 줄 모르는 마음' },
+            { emoji: '🤫', name: '조용해요', energy: 'low', valence: 'positive', color: 'bg-emerald-100 text-emerald-900 dark:bg-emerald-800 dark:text-emerald-100', description: '고요하고 침묵하는 마음' }
         ];
 
         const steps = [
@@ -662,6 +668,12 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
         // 스와이프 제스처 변수
         let touchStartX = 0;
         let touchEndX = 0;
+
+        // 드래그 앤 드롭 상태 관리
+        let dragState = {
+            draggedElement: null,
+            isActive: false
+        };
 
         // 음성 인식 초기화
         function initSpeechRecognition() {
@@ -978,22 +990,22 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
         // 4분면 HTML 생성 (이미지용)
         function generateQuadrantHTML() {
             const quadrants = [
-                { key: 'positive_high', title: '⚡ 신나는 감정', bg: '#fef3c7', border: '#f59e0b' },
-                { key: 'positive_low', title: '🌱 평온한 감정', bg: '#dcfce7', border: '#22c55e' },
-                { key: 'negative_high', title: '🔥 격한 감정', bg: '#fee2e2', border: '#ef4444' },
-                { key: 'negative_low', title: '💧 가라앉은 감정', bg: '#dbeafe', border: '#3b82f6' }
+                { key: 'positive_high', title: '⚡ 신나는 감정', bg: '#fef3c7', border: '#f59e0b', textColor: '#92400e' },
+                { key: 'positive_low', title: '🌱 평온한 감정', bg: '#dcfce7', border: '#22c55e', textColor: '#166534' },
+                { key: 'negative_high', title: '🔥 격한 감정', bg: '#fee2e2', border: '#ef4444', textColor: '#dc2626' },
+                { key: 'negative_low', title: '💧 가라앉은 감정', bg: '#dbeafe', border: '#3b82f6', textColor: '#1d4ed8' }
             ];
 
             return quadrants.map(quadrant => {
                 const emotions = appState.quadrantEmotions[quadrant.key] || [];
                 return `
                     <div style="background: ${quadrant.bg}; border: 2px solid ${quadrant.border}; border-radius: 12px; padding: 16px; min-height: 120px;">
-                        <h3 style="font-weight: bold; color: #374151; margin-bottom: 12px; text-align: center; font-size: 16px;">
+                        <h3 style="font-weight: bold; color: ${quadrant.textColor}; margin-bottom: 12px; text-align: center; font-size: 16px;">
                             ${quadrant.title}
                         </h3>
                         <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
                             ${emotions.map(emotion => `
-                                <span style="background: white; padding: 6px 12px; border-radius: 16px; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                <span style="background: white; padding: 6px 12px; border-radius: 16px; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); color: #374151; font-weight: 600;">
                                     ${emotion.emoji} ${emotion.name}
                                 </span>
                             `).join('')}
@@ -1360,13 +1372,13 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                                     <div class="grid grid-cols-2 gap-4">
                                         <!-- 긍정 + 높은 에너지 -->
                                         <div 
-                                            class="quadrant p-4 rounded-xl bg-yellow-50 dark:bg-yellow-900"
+                                            class="quadrant p-4 rounded-xl ${quadrantInfo.positive_high.color} border-2"
                                             data-quadrant="positive_high"
                                         >
-                                            <h4 class="font-bold text-yellow-700 dark:text-yellow-300 mb-2 text-center">
+                                            <h4 class="font-bold ${quadrantInfo.positive_high.textColor} mb-2 text-center">
                                                 ⚡ 신나는 감정
                                             </h4>
-                                            <p class="text-xs text-yellow-600 dark:text-yellow-400 text-center mb-3">기쁘고 에너지 넘치는</p>
+                                            <p class="text-xs ${quadrantInfo.positive_high.textColor} opacity-80 text-center mb-3">기쁘고 에너지 넘치는</p>
                                             <div class="min-h-[80px] flex flex-wrap gap-1">
                                                 ${appState.quadrantEmotions.positive_high.map(emotion => `
                                                     <div draggable="true" class="emotion-chip emotion-in-quadrant ${emotion.color}" data-emotion='${JSON.stringify(emotion)}'>
@@ -1378,13 +1390,13 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
 
                                         <!-- 긍정 + 낮은 에너지 -->
                                         <div 
-                                            class="quadrant p-4 rounded-xl bg-green-50 dark:bg-green-900"
+                                            class="quadrant p-4 rounded-xl ${quadrantInfo.positive_low.color} border-2"
                                             data-quadrant="positive_low"
                                         >
-                                            <h4 class="font-bold text-green-700 dark:text-green-300 mb-2 text-center">
+                                            <h4 class="font-bold ${quadrantInfo.positive_low.textColor} mb-2 text-center">
                                                 🌱 평온한 감정
                                             </h4>
-                                            <p class="text-xs text-green-600 dark:text-green-400 text-center mb-3">좋지만 차분한</p>
+                                            <p class="text-xs ${quadrantInfo.positive_low.textColor} opacity-80 text-center mb-3">좋지만 차분한</p>
                                             <div class="min-h-[80px] flex flex-wrap gap-1">
                                                 ${appState.quadrantEmotions.positive_low.map(emotion => `
                                                     <div draggable="true" class="emotion-chip emotion-in-quadrant ${emotion.color}" data-emotion='${JSON.stringify(emotion)}'>
@@ -1396,13 +1408,13 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
 
                                         <!-- 부정 + 높은 에너지 -->
                                         <div 
-                                            class="quadrant p-4 rounded-xl bg-red-50 dark:bg-red-900"
+                                            class="quadrant p-4 rounded-xl ${quadrantInfo.negative_high.color} border-2"
                                             data-quadrant="negative_high"
                                         >
-                                            <h4 class="font-bold text-red-700 dark:text-red-300 mb-2 text-center">
+                                            <h4 class="font-bold ${quadrantInfo.negative_high.textColor} mb-2 text-center">
                                                 🔥 격한 감정
                                             </h4>
-                                            <p class="text-xs text-red-600 dark:text-red-400 text-center mb-3">힘들고 에너지 많은</p>
+                                            <p class="text-xs ${quadrantInfo.negative_high.textColor} opacity-80 text-center mb-3">힘들고 에너지 많은</p>
                                             <div class="min-h-[80px] flex flex-wrap gap-1">
                                                 ${appState.quadrantEmotions.negative_high.map(emotion => `
                                                     <div draggable="true" class="emotion-chip emotion-in-quadrant ${emotion.color}" data-emotion='${JSON.stringify(emotion)}'>
@@ -1414,13 +1426,13 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
 
                                         <!-- 부정 + 낮은 에너지 -->
                                         <div 
-                                            class="quadrant p-4 rounded-xl bg-blue-50 dark:bg-blue-900"
+                                            class="quadrant p-4 rounded-xl ${quadrantInfo.negative_low.color} border-2"
                                             data-quadrant="negative_low"
                                         >
-                                            <h4 class="font-bold text-blue-700 dark:text-blue-300 mb-2 text-center">
+                                            <h4 class="font-bold ${quadrantInfo.negative_low.textColor} mb-2 text-center">
                                                 💧 가라앉은 감정
                                             </h4>
-                                            <p class="text-xs text-blue-600 dark:text-blue-400 text-center mb-3">힘들고 축 처진</p>
+                                            <p class="text-xs ${quadrantInfo.negative_low.textColor} opacity-80 text-center mb-3">힘들고 축 처진</p>
                                             <div class="min-h-[80px] flex flex-wrap gap-1">
                                                 ${appState.quadrantEmotions.negative_low.map(emotion => `
                                                     <div draggable="true" class="emotion-chip emotion-in-quadrant ${emotion.color}" data-emotion='${JSON.stringify(emotion)}'>
@@ -1465,12 +1477,24 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                                             negative_high: '🔥 격한 감정',
                                             negative_low: '💧 가라앉은 감정'
                                         };
+                                        const bgColors = {
+                                            positive_high: 'bg-yellow-50 dark:bg-yellow-900 border-yellow-200 dark:border-yellow-700',
+                                            positive_low: 'bg-green-50 dark:bg-green-900 border-green-200 dark:border-green-700',
+                                            negative_high: 'bg-red-50 dark:bg-red-900 border-red-200 dark:border-red-700',
+                                            negative_low: 'bg-blue-50 dark:bg-blue-900 border-blue-200 dark:border-blue-700'
+                                        };
+                                        const textColors = {
+                                            positive_high: 'text-yellow-800 dark:text-yellow-200',
+                                            positive_low: 'text-green-800 dark:text-green-200',
+                                            negative_high: 'text-red-800 dark:text-red-200',
+                                            negative_low: 'text-blue-800 dark:text-blue-200'
+                                        };
                                         return `
-                                            <div class="bg-white dark:bg-gray-700 p-3 rounded-lg">
-                                                <h4 class="font-semibold text-sm mb-2 text-gray-900 dark:text-gray-100">${titles[quadrant]}</h4>
+                                            <div class="${bgColors[quadrant]} border-2 p-3 rounded-lg">
+                                                <h4 class="font-semibold text-sm mb-2 ${textColors[quadrant]}">${titles[quadrant]}</h4>
                                                 <div class="flex flex-wrap gap-1">
                                                     ${appState.quadrantEmotions[quadrant].map(emotion => `
-                                                        <span class="text-xs px-2 py-1 rounded ${emotion.color}">
+                                                        <span class="text-xs px-2 py-1 rounded font-medium ${emotion.color}">
                                                             ${emotion.emoji} ${emotion.name}
                                                         </span>
                                                     `).join('')}
@@ -1550,10 +1574,8 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                     break;
 
                 case 2:
-                    // 드래그 앤 드롭 이벤트 - 개선된 버전
-                    setupEnhancedDragAndDrop();
-                    // 모바일 터치 이벤트
-                    setupMobileTouchEnhancements();
+                    // 수정된 드래그 앤 드롭 이벤트
+                    setupSimpleDragAndDrop();
                     break;
 
                 case 3:
@@ -1583,6 +1605,132 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
             }
         }
 
+        // 🔧 수정된 간단한 드래그 앤 드롭 설정
+        function setupSimpleDragAndDrop() {
+            console.log('🎯 드래그 앤 드롭 설정 시작');
+            
+            // 모든 드래그 가능한 요소 선택
+            const draggableElements = document.querySelectorAll('[draggable="true"]');
+            const dropTargets = [...document.querySelectorAll('.quadrant'), document.getElementById('emotionSource')];
+
+            console.log(`📋 드래그 가능한 요소: ${draggableElements.length}개`);
+            console.log(`🎯 드롭 타겟: ${dropTargets.length}개`);
+
+            // 각 드래그 가능한 요소에 이벤트 리스너 추가
+            draggableElements.forEach((element, index) => {
+                console.log(`🔗 ${index + 1}번째 요소에 이벤트 추가:`, element.textContent);
+                
+                element.addEventListener('dragstart', handleDragStart, { passive: false });
+                element.addEventListener('dragend', handleDragEnd, { passive: false });
+            });
+
+            // 각 드롭 타겟에 이벤트 리스너 추가
+            dropTargets.forEach((target, index) => {
+                console.log(`🎯 ${index + 1}번째 타겟에 이벤트 추가:`, target.dataset.quadrant || 'source');
+                
+                target.addEventListener('dragover', handleDragOver, { passive: false });
+                target.addEventListener('dragenter', handleDragEnter, { passive: false });
+                target.addEventListener('dragleave', handleDragLeave, { passive: false });
+                target.addEventListener('drop', handleDrop, { passive: false });
+            });
+        }
+
+        // 드래그 시작 핸들러
+        function handleDragStart(e) {
+            console.log('🚀 드래그 시작:', e.target.textContent);
+            
+            dragState.draggedElement = e.target;
+            dragState.isActive = true;
+            
+            const emotionData = e.target.dataset.emotion;
+            e.dataTransfer.setData('text/plain', emotionData);
+            e.dataTransfer.effectAllowed = 'move';
+            
+            e.target.classList.add('emotion-dragging');
+            playSound('click');
+        }
+
+        // 드래그 종료 핸들러
+        function handleDragEnd(e) {
+            console.log('🏁 드래그 종료');
+            
+            e.target.classList.remove('emotion-dragging');
+            
+            // 모든 하이라이트 제거
+            document.querySelectorAll('.highlight').forEach(el => {
+                el.classList.remove('highlight');
+            });
+            
+            dragState.draggedElement = null;
+            dragState.isActive = false;
+        }
+
+        // 드래그 오버 핸들러
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+        }
+
+        // 드래그 엔터 핸들러
+        function handleDragEnter(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('highlight');
+        }
+
+        // 드래그 리브 핸들러
+        function handleDragLeave(e) {
+            // 자식 요소로 이동하는 경우 제외
+            if (!e.currentTarget.contains(e.relatedTarget)) {
+                e.currentTarget.classList.remove('highlight');
+            }
+        }
+
+        // 드롭 핸들러
+        function handleDrop(e) {
+            e.preventDefault();
+            console.log('💧 드롭 발생');
+            
+            const emotionData = e.dataTransfer.getData('text/plain');
+            if (!emotionData) {
+                console.error('❌ 감정 데이터가 없습니다');
+                return;
+            }
+
+            try {
+                const emotion = JSON.parse(emotionData);
+                const targetQuadrant = e.currentTarget.dataset.quadrant;
+                
+                console.log('📝 이동할 감정:', emotion.name);
+                console.log('🎯 목표 위치:', targetQuadrant || 'source');
+                
+                // 기존 위치에서 감정 제거
+                Object.keys(appState.quadrantEmotions).forEach(key => {
+                    appState.quadrantEmotions[key] = appState.quadrantEmotions[key].filter(e => e.name !== emotion.name);
+                });
+
+                // 새 위치에 추가 (소스 영역이 아닌 경우만)
+                if (targetQuadrant && appState.quadrantEmotions[targetQuadrant]) {
+                    appState.quadrantEmotions[targetQuadrant].push(emotion);
+                    console.log('✅ 감정이 성공적으로 이동됨');
+                }
+
+                // 하이라이트 제거
+                e.currentTarget.classList.remove('highlight');
+                
+                // UI 업데이트
+                updateUI();
+                renderStep();
+                saveToStorage();
+                
+                playSound('success');
+                showToast(`"${emotion.name}"이(가) 이동되었어요! 🎯`);
+                
+            } catch (error) {
+                console.error('❌ 드롭 처리 오류:', error);
+                showToast('이동 중 오류가 발생했어요. 다시 시도해주세요.');
+            }
+        }
+
         // 감정 토글
         function toggleEmotion(emotion) {
             const existingIndex = appState.selectedEmotions.findIndex(e => e.name === emotion.name);
@@ -1592,552 +1740,6 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
                 appState.selectedEmotions.push(emotion);
             }
             saveToStorage();
-        }
-
-        // 개선된 드래그 앤 드롭 설정
-        function setupEnhancedDragAndDrop() {
-            // 모든 드래그 가능한 요소들 (소스 영역과 4분면 모두 포함)
-            const updateDragElements = () => {
-                const draggableElements = document.querySelectorAll('[draggable="true"]');
-                const dropTargets = [...document.querySelectorAll('.quadrant'), document.getElementById('emotionSource')];
-
-                draggableElements.forEach(element => {
-                    // 기존 이벤트 리스너 제거 방지를 위해 clone으로 교체
-                    const newElement = element.cloneNode(true);
-                    element.parentNode.replaceChild(newElement, element);
-
-                    // 드래그 시작
-                    newElement.addEventListener('dragstart', (e) => {
-                        e.dataTransfer.setData('text/plain', newElement.dataset.emotion);
-                        newElement.classList.add('emotion-dragging');
-                        playSound('click');
-                    });
-
-                    // 드래그 종료
-                    newElement.addEventListener('dragend', (e) => {
-                        newElement.classList.remove('emotion-dragging');
-                    });
-                });
-
-                dropTargets.forEach(target => {
-                    // 기존 이벤트 리스너 제거
-                    const newTarget = target.cloneNode(true);
-                    target.parentNode.replaceChild(newTarget, target);
-
-                    // 드래그 오버
-                    newTarget.addEventListener('dragover', (e) => {
-                        e.preventDefault();
-                        newTarget.classList.add('highlight');
-                    });
-
-                    // 드래그 떠남
-                    newTarget.addEventListener('dragleave', (e) => {
-                        // 자식 요소로 이동하는 경우 제외
-                        if (!newTarget.contains(e.relatedTarget)) {
-                            newTarget.classList.remove('highlight');
-                        }
-                    });
-
-                    // 드롭
-                    newTarget.addEventListener('drop', (e) => {
-                        e.preventDefault();
-                        const emotionData = e.dataTransfer.getData('text/plain');
-                        if (!emotionData) return;
-
-                        const emotion = JSON.parse(emotionData);
-                        
-                        // 기존 위치에서 제거
-                        Object.keys(appState.quadrantEmotions).forEach(key => {
-                            appState.quadrantEmotions[key] = appState.quadrantEmotions[key].filter(e => e.name !== emotion.name);
-                        });
-
-                        // 새 위치에 추가 (소스 영역이 아닌 경우만)
-                        if (newTarget.dataset.quadrant) {
-                            appState.quadrantEmotions[newTarget.dataset.quadrant].push(emotion);
-                        }
-
-                        newTarget.classList.remove('highlight');
-                        
-                        // UI 업데이트 및 이벤트 재설정
-                        renderStep();
-                        updateUI();
-                        saveToStorage();
-                        playSound('success');
-                        showToast(`감정이 이동되었어요! 🎯`);
-                    });
-                });
-            };
-
-            // 초기 설정
-            updateDragElements();
-        }
-
-        // 모바일 터치 환경 개선 코드 (기존과 동일하지만 다크모드 지원 추가)
-        function setupMobileTouchEnhancements() {
-            'use strict';
-
-            // 상태 관리
-            const touchState = {
-                longPressTimer: null,
-                isDragging: false,
-                selectedEmotion: null,
-                touchHandlers: new WeakMap(),
-                controllers: new WeakMap()
-            };
-
-            // 유틸리티 함수들
-            const utils = {
-                // 감정 위치 찾기
-                getCurrentEmotionLocation(emotion) {
-                    for (const [quadrant, emotions] of Object.entries(appState.quadrantEmotions || {})) {
-                        if (Array.isArray(emotions) && emotions.find(e => this.isSameEmotion(e, emotion))) {
-                            return quadrant;
-                        }
-                    }
-                    return 'source';
-                },
-
-                // 감정 비교
-                isSameEmotion(e1, e2) {
-                    if (!e1 || !e2) return false;
-                    return e1.name === e2.name && e1.emoji === e2.emoji;
-                },
-
-                // 모든 위치에서 감정 제거
-                removeEmotionFromAllLocations(emotion) {
-                    Object.keys(appState.quadrantEmotions || {}).forEach(key => {
-                        if (Array.isArray(appState.quadrantEmotions[key])) {
-                            appState.quadrantEmotions[key] = appState.quadrantEmotions[key].filter(
-                                e => !this.isSameEmotion(e, emotion)
-                            );
-                        }
-                    });
-                },
-
-                // UI 업데이트
-                updateUI() {
-                    renderStep();
-                    updateUI();
-                    saveToStorage();
-                }
-            };
-
-            // 터치 핸들러
-            const touchHandlers = {
-                handleTouchStart(e, chip) {
-                    if (!e.touches || e.touches.length === 0) return;
-
-                    // 이전 타이머 정리
-                    if (touchState.longPressTimer) {
-                        clearTimeout(touchState.longPressTimer);
-                    }
-
-                    // 길게 누르기 감지
-                    touchState.longPressTimer = setTimeout(() => {
-                        contextMenu.show(chip, e.touches[0]);
-
-                        // 햅틱 피드백
-                        if (navigator.vibrate) {
-                            navigator.vibrate(50);
-                        }
-
-                        touchState.longPressTimer = null;
-                    }, 500);
-
-                    // 시각적 피드백
-                    chip.classList.add('touch-pressed');
-                },
-
-                handleTouchMove(e, chip) {
-                    // 움직임 감지 시 길게 누르기 취소
-                    if (touchState.longPressTimer) {
-                        clearTimeout(touchState.longPressTimer);
-                        touchState.longPressTimer = null;
-                    }
-                },
-
-                handleTouchEnd(e, chip) {
-                    // 타이머 정리
-                    if (touchState.longPressTimer) {
-                        clearTimeout(touchState.longPressTimer);
-                        touchState.longPressTimer = null;
-
-                        // 짧은 탭 처리
-                        handleTap(chip);
-                    }
-
-                    // 시각적 피드백 제거
-                    chip.classList.remove('touch-pressed');
-                }
-            };
-
-            // 탭 처리
-            function handleTap(chip) {
-                if (!touchState.selectedEmotion) {
-                    selectEmotionForMove(chip);
-                } else if (touchState.selectedEmotion === chip) {
-                    deselectEmotion();
-                } else {
-                    swapEmotions(touchState.selectedEmotion, chip);
-                }
-            }
-
-            // 감정 선택
-            function selectEmotionForMove(chip) {
-                try {
-                    // 이전 선택 해제
-                    deselectEmotion();
-
-                    touchState.selectedEmotion = chip;
-                    chip.classList.add('selected-for-move');
-
-                    // 이동 타겟 활성화
-                    activateMoveTargets();
-
-                    showToast('이동할 위치를 탭하세요 (다시 탭하면 취소)');
-
-                    // 10초 후 자동 취소
-                    setTimeout(() => {
-                        if (touchState.selectedEmotion === chip) {
-                            deselectEmotion();
-                        }
-                    }, 10000);
-
-                } catch (error) {
-                    console.error('selectEmotionForMove 오류:', error);
-                    deselectEmotion();
-                }
-            }
-
-            // 선택 해제
-            function deselectEmotion() {
-                if (touchState.selectedEmotion) {
-                    touchState.selectedEmotion.classList.remove('selected-for-move');
-                    touchState.selectedEmotion = null;
-                }
-
-                deactivateMoveTargets();
-            }
-
-            // 이동 타겟 활성화
-            function activateMoveTargets() {
-                // 4분면 활성화
-                document.querySelectorAll('.quadrant').forEach(quadrant => {
-                    quadrant.classList.add('move-target');
-
-                    const controller = new AbortController();
-                    touchState.controllers.set(quadrant, controller);
-
-                    quadrant.addEventListener('click', handleQuadrantClick, {
-                        signal: controller.signal
-                    });
-                });
-
-                // 소스 영역 활성화
-                const sourceArea = document.getElementById('emotionSource');
-                if (sourceArea) {
-                    sourceArea.classList.add('move-target');
-
-                    const controller = new AbortController();
-                    touchState.controllers.set(sourceArea, controller);
-
-                    sourceArea.addEventListener('click', handleSourceClick, {
-                        signal: controller.signal
-                    });
-                }
-            }
-
-            // 이동 타겟 비활성화
-            function deactivateMoveTargets() {
-                document.querySelectorAll('.move-target').forEach(target => {
-                    target.classList.remove('move-target');
-
-                    const controller = touchState.controllers.get(target);
-                    if (controller) {
-                        controller.abort();
-                        touchState.controllers.delete(target);
-                    }
-                });
-            }
-
-            // 4분면 클릭 처리
-            function handleQuadrantClick(e) {
-                if (!touchState.selectedEmotion) return;
-
-                e.stopPropagation();
-                const quadrant = e.currentTarget.dataset.quadrant;
-                const emotionData = getEmotionData(touchState.selectedEmotion);
-
-                if (emotionData && quadrant) {
-                    moveEmotionToQuadrant(emotionData, quadrant);
-                    deselectEmotion();
-                }
-            }
-
-            // 소스 영역 클릭 처리
-            function handleSourceClick(e) {
-                if (!touchState.selectedEmotion) return;
-
-                e.stopPropagation();
-                const emotionData = getEmotionData(touchState.selectedEmotion);
-
-                if (emotionData) {
-                    moveEmotionToSource(emotionData);
-                    deselectEmotion();
-                }
-            }
-
-            // 감정 데이터 추출
-            function getEmotionData(element) {
-                try {
-                    const dataStr = element.dataset.emotion ||
-                                   element.closest('[data-emotion]')?.dataset.emotion;
-                    return dataStr ? JSON.parse(dataStr) : null;
-                } catch (error) {
-                    console.error('감정 데이터 파싱 오류:', error);
-                    return null;
-                }
-            }
-
-            // 감정 위치 이동
-            function moveEmotionToQuadrant(emotion, quadrant) {
-                try {
-                    if (!appState.quadrantEmotions || !quadrantInfo[quadrant]) {
-                        console.error('유효하지 않은 quadrant:', quadrant);
-                        return;
-                    }
-
-                    // 기존 위치에서 제거
-                    utils.removeEmotionFromAllLocations(emotion);
-
-                    // 새 위치에 추가
-                    if (!Array.isArray(appState.quadrantEmotions[quadrant])) {
-                        appState.quadrantEmotions[quadrant] = [];
-                    }
-                    appState.quadrantEmotions[quadrant].push(emotion);
-
-                    // 알림
-                    const quadrantName = quadrantInfo[quadrant].title[appState.language || 'ko'];
-                    const emotionName = emotion.name || '감정';
-
-                    showToast(`"${emotionName}"이(가) ${quadrantName}로 이동했어요!`);
-                    playSound('success');
-
-                    // UI 업데이트
-                    utils.updateUI();
-
-                } catch (error) {
-                    console.error('moveEmotionToQuadrant 오류:', error);
-                }
-            }
-
-            // 감정을 소스로 이동
-            function moveEmotionToSource(emotion) {
-                utils.removeEmotionFromAllLocations(emotion);
-                showToast('감정카드가 분류함으로 돌아갔어요!');
-                playSound('click');
-                utils.updateUI();
-            }
-
-            // 감정 교환
-            function swapEmotions(chip1, chip2) {
-                try {
-                    const emotion1 = getEmotionData(chip1);
-                    const emotion2 = getEmotionData(chip2);
-
-                    if (!emotion1 || !emotion2) {
-                        console.warn('감정 데이터를 찾을 수 없음');
-                        return;
-                    }
-
-                    const location1 = utils.getCurrentEmotionLocation(emotion1);
-                    const location2 = utils.getCurrentEmotionLocation(emotion2);
-
-                    // 위치 교환
-                    utils.removeEmotionFromAllLocations(emotion1);
-                    utils.removeEmotionFromAllLocations(emotion2);
-
-                    if (location1 !== 'source' && appState.quadrantEmotions) {
-                        if (!Array.isArray(appState.quadrantEmotions[location1])) {
-                            appState.quadrantEmotions[location1] = [];
-                        }
-                        appState.quadrantEmotions[location1].push(emotion2);
-                    }
-
-                    if (location2 !== 'source' && appState.quadrantEmotions) {
-                        if (!Array.isArray(appState.quadrantEmotions[location2])) {
-                            appState.quadrantEmotions[location2] = [];
-                        }
-                        appState.quadrantEmotions[location2].push(emotion1);
-                    }
-
-                    showToast('감정카드 위치가 교환되었어요!');
-                    playSound('success');
-                    utils.updateUI();
-
-                    deselectEmotion();
-
-                } catch (error) {
-                    console.error('swapEmotions 오류:', error);
-                    deselectEmotion();
-                }
-            }
-
-            // 컨텍스트 메뉴 (다크모드 지원 개선)
-            const contextMenu = {
-                show(chip, touch) {
-                    try {
-                        const emotionData = getEmotionData(chip);
-                        if (!emotionData) return;
-
-                        this.remove();
-
-                        const menu = this.create(emotionData);
-                        document.body.appendChild(menu);
-
-                        const overlay = this.createOverlay();
-                        document.body.appendChild(overlay);
-
-                    } catch (error) {
-                        console.error('contextMenu.show 오류:', error);
-                    }
-                },
-
-                create(emotion) {
-                    const menu = document.createElement('div');
-                    menu.className = 'mobile-context-menu fixed bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 max-w-sm w-full mx-4 border dark:border-gray-600';
-                    menu.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;';
-
-                    const language = appState.language || 'ko';
-                    const currentLocation = utils.getCurrentEmotionLocation(emotion);
-
-                    const emotionName = emotion.name || '알 수 없는 감정';
-                    const emotionDescription = emotion.description || '';
-
-                    menu.innerHTML = `
-                        <div class="text-center mb-6">
-                            <div class="text-4xl mb-2">${emotion.emoji || '😐'}</div>
-                            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200">
-                                ${emotionName}
-                            </h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">
-                                ${emotionDescription}
-                            </p>
-                        </div>
-                        
-                        <div class="space-y-3">
-                            ${currentLocation !== 'source' ? `
-                                <button class="menu-action-btn w-full py-3 px-4 bg-blue-500 hover:bg-blue-600 text-white rounded-xl flex items-center justify-center space-x-2 text-sm font-medium"
-                                        data-action="source" data-emotion='${JSON.stringify(emotion)}'>
-                                    <span>🔄</span>
-                                    <span>분류함으로 되돌리기</span>
-                                </button>
-                            ` : ''}
-                            
-                            <div class="text-xs text-gray-500 dark:text-gray-400 text-center">다른 분면으로 이동</div>
-                            
-                            <div class="grid grid-cols-2 gap-3">
-                                ${Object.entries(quadrantInfo)
-                                    .filter(([key]) => key !== currentLocation)
-                                    .map(([key, info]) => {
-                                        const titleParts = info.title[language].split(' ');
-                                        return `
-                                            <button class="menu-action-btn py-3 px-2 ${info.color} dark:bg-opacity-20 border-2 border-gray-200 dark:border-gray-600 rounded-xl text-xs font-medium text-center hover:opacity-80"
-                                                    data-action="${key}" data-emotion='${JSON.stringify(emotion)}'>
-                                                <div class="text-lg mb-1">${titleParts[0] || ''}</div>
-                                                <div class="text-gray-700 dark:text-gray-300">${titleParts[1] || ''}</div>
-                                            </button>
-                                        `;
-                                    }).join('')}
-                            </div>
-                            
-                            <button class="menu-close-btn w-full py-3 px-4 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-xl text-sm font-medium hover:bg-gray-300 dark:hover:bg-gray-500">
-                                취소
-                            </button>
-                        </div>
-                    `;
-
-                    // 이벤트 바인딩
-                    menu.querySelectorAll('.menu-action-btn').forEach(btn => {
-                        btn.addEventListener('click', () => {
-                            const action = btn.dataset.action;
-                            const emotionData = JSON.parse(btn.dataset.emotion);
-
-                            if (action === 'source') {
-                                moveEmotionToSource(emotionData);
-                            } else {
-                                moveEmotionToQuadrant(emotionData, action);
-                            }
-
-                            this.remove();
-                        });
-                    });
-
-                    menu.querySelector('.menu-close-btn')?.addEventListener('click', () => {
-                        this.remove();
-                    });
-
-                    return menu;
-                },
-
-                createOverlay() {
-                    const overlay = document.createElement('div');
-                    overlay.className = 'mobile-menu-overlay fixed inset-0 bg-black bg-opacity-50';
-                    overlay.style.zIndex = '999';
-                    overlay.addEventListener('click', () => this.remove());
-                    return overlay;
-                },
-
-                remove() {
-                    document.querySelectorAll('.mobile-context-menu, .mobile-menu-overlay').forEach(el => el.remove());
-                }
-            };
-
-            // 터치 이벤트 등록
-            function addTouchEvents() {
-                const emotionChips = document.querySelectorAll('.emotion-chip, .emotion-in-quadrant');
-
-                emotionChips.forEach(chip => {
-                    // 기존 컨트롤러 정리
-                    const existingController = touchState.controllers.get(chip);
-                    if (existingController) {
-                        existingController.abort();
-                    }
-
-                    // 새 컨트롤러 생성
-                    const controller = new AbortController();
-                    touchState.controllers.set(chip, controller);
-
-                    // 이벤트 등록
-                    const options = { passive: false, signal: controller.signal };
-
-                    chip.addEventListener('touchstart', (e) => touchHandlers.handleTouchStart(e, chip), options);
-                    chip.addEventListener('touchmove', (e) => touchHandlers.handleTouchMove(e, chip), options);
-                    chip.addEventListener('touchend', (e) => touchHandlers.handleTouchEnd(e, chip), options);
-                });
-            }
-
-            // 초기 설정
-            addTouchEvents();
-
-            // 정리 함수
-            window.cleanupMobileTouchEvents = function() {
-                // 타이머 정리
-                if (touchState.longPressTimer) {
-                    clearTimeout(touchState.longPressTimer);
-                    touchState.longPressTimer = null;
-                }
-
-                // 선택 상태 정리
-                deselectEmotion();
-
-                // 모든 컨트롤러 정리
-                touchState.controllers.forEach(controller => controller.abort());
-                touchState.controllers.clear();
-
-                // 메뉴 제거
-                contextMenu.remove();
-            };
         }
 
         // 네비게이션 함수들
@@ -2270,6 +1872,7 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
 
         // 초기화
         function init() {
+            console.log('🚀 앱 초기화 시작');
             initSpeechRecognition();
             loadFromStorage();
             updateUI();
@@ -2278,6 +1881,7 @@ touch-action-manipulation min-h-[44px]" aria-label="다음 단계">
 
             // 자동 저장
             setInterval(saveToStorage, 30000);
+            console.log('✅ 앱 초기화 완료');
         }
 
         // 앱 시작
